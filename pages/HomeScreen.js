@@ -54,6 +54,10 @@ export default class HomeScreen extends React.Component {
           title="Delete"
           customClick={() => this.props.navigation.navigate('Delete')}
         />
+        <Mybutton
+          title="List View"
+          customClick={() => this.props.navigation.navigate('ListView')}
+        />
       </View>
     );
   }

@@ -10,7 +10,8 @@ import UpdateUser from './pages/UpdateUser';
 import ViewUser from './pages/ViewUser';
 import ViewAllUser from './pages/ViewAllUser';
 import DeleteUser from './pages/DeleteUser';
- 
+import ListUsers from './pages/ListUsers';
+
 const App = createStackNavigator({
   HomeScreen: {
     screen: HomeScreen,
@@ -56,6 +57,14 @@ const App = createStackNavigator({
     screen: DeleteUser,
     navigationOptions: {
       title: 'Delete User',
+      headerStyle: { backgroundColor: '#424242' },
+      headerTintColor: '#ffffff',
+    },
+  },
+  ListView: {
+    screen: ListUsers,
+    navigationOptions: {
+      title: 'Server Side',
       headerStyle: { backgroundColor: '#424242' },
       headerTintColor: '#ffffff',
     },

@@ -1,9 +1,9 @@
 yarn add react-native-safe-area-context
 
-npm install react-native-sqlite-storage --save
+yarn add react-native-sqlite-storage
 
-npm install react-navigation --save
+yarn add react-navigation
 
-npm install react-native-gesture-handler --save
+yarn add react-native-gesture-handler
 
 yarn add react-navigation-stack @react-native-community/masked-view
