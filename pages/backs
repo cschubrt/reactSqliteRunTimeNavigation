@@ -1,0 +1,8 @@
+            <View style={styles.MainContainer}>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderSeparator={this.ListViewItemSeparator}
+                    renderRow={(rowData) => <Text style={styles.rowViewContainer}
+                        onPress={this.OpenSecondActivity.bind(this, rowData.id)}> {rowData.name} </Text>}
+                />
+            </View>

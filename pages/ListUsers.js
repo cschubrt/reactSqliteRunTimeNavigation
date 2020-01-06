@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, ListView, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, FlatList, ActivityIndicator } from 'react-native';
 import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack'
-
-import Mybutton from './components/Mybutton';
-import Mytext from './components/Mytext';
-import Mytextinput from './components/Mytextinput';
+import { createStackNavigator } from 'react-navigation-stack';
 
 export default class ListUsers extends React.Component {
-
-    static navigationOptions = {
-            title: 'MainActivity',
-        };
 
     constructor(props) {
         super(props);
@@ -21,17 +13,16 @@ export default class ListUsers extends React.Component {
     }
 
     OpenSecondActivity(id) {
-        this.props.navigation.navigate('Second', { ListViewClickItemHolder: id });
+        this.props.navigation.navigate('SecondActivity', { ListViewClickItemHolder: id });
     }
 
     componentDidMount() {
         return fetch('https://cschubert.000webhostapp.com/CollegeStudentsList.php')
             .then((response) => response.json())
             .then((responseJson) => {
-                let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
                 this.setState({
                     isLoading: false,
-                    dataSource: ds.cloneWithRows(responseJson),
+                    dataSource: responseJson,
                 }, function () {
                     // In this block you can do something with new state.
                 });
@@ -61,17 +52,49 @@ export default class ListUsers extends React.Component {
                 </View>
             );
         }
-
         return (
-            <View style={styles.MainContainer}>
-                <ListView
-                    dataSource={this.state.dataSource}
-                    renderSeparator={this.ListViewItemSeparator}
-                    renderRow={(rowData) => <Text style={styles.rowViewContainer}
-                        onPress={this.OpenSecondActivity.bind(this, rowData.id)}> {rowData.name} </Text>}
+            <View style={styles.MainContainer_For_Show_StudentList_Activity}>
+                <FlatList
+                    data={this.state.dataSource}
+                    ItemSeparatorComponent={this.ListViewItemSeparator}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => <Text style={styles.rowViewContainer}
+                        onPress={this.OpenSecondActivity.bind(this, item.student_id)}> {item.student_name} </Text>}
                 />
             </View>
         );
     }
 
 }
+
+const styles = StyleSheet.create({
+    rowViewContainer: {
+        fontSize: 20,
+        paddingRight: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+    MainContainer_For_Show_StudentList_Activity: {
+        flex: 1,
+        paddingTop: (Platform.OS == 'ios') ? 20 : 0,
+        marginLeft: 5,
+        marginRight: 5
+    },
+    MainContainer:
+    {
+        justifyContent: 'center',
+        flex: 1,
+        margin: 10
+    },
+    rowViewContainer: {
+        fontSize: 20,
+        paddingRight: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+    textViewContainer: {
+        padding: 5,
+        fontSize: 20,
+        color: '#000',
+    }
+});
